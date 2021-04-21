@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "177721441841",
+    "firebase_url": "https://the-last-55abe-ae47b.firebaseio.com",
+    "project_id": "the-last-55abe-ae47b",
+    "storage_bucket": "the-last-55abe-ae47b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177721441841:android:63959699bb526a13b31f10",
+        "android_client_info": {
+          "package_name": "com.visionsacademy.visions_academy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177721441841-6bt1502a9mrj89f570rb6ec1vffrc5oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHQzG1_57J7A-bZkpYQ-Rm1axmZejIzTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177721441841-6bt1502a9mrj89f570rb6ec1vffrc5oa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
