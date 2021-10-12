@@ -6,7 +6,6 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:visions_academy/SubscriptionPage/SubscriptionPage.dart';
 import 'package:visions_academy/biochemistry/chaptersbio.dart';
 import 'package:visions_academy/data_for_log_register/auth.dart';
-import 'package:visions_academy/organic1/chaptersor.dart';
 
 import '../constants.dart';
 
@@ -15,7 +14,7 @@ class CoursesSciences extends StatefulWidget {
   _CoursesSciencesState createState() => _CoursesSciencesState();
 }
 
-PageController _pageController;
+// PageController _pageController;
 
 class _CoursesSciencesState extends State<CoursesSciences> {
   User userId;
@@ -36,22 +35,21 @@ class _CoursesSciencesState extends State<CoursesSciences> {
           .get()
           .then((value) async {
         isavail = value.data()["Course"][selectedCourse]["isPurchased"];
-        var dueDate =
-            value.data()["Course"][selectedCourse]["DueDate"].toDate();
+        var dueDate = value.data()["Course"][selectedCourse]["DueDate"];
 
-        if (dueDate.isAfter(DateTime.now().add(Duration(days: 1)))) {
-          print("Date is not passed");
-        } else {
-          print("Date is passed");
-          var tempRefrence = firestore.collection("ManualPayment").doc(u_id);
-          tempRefrence.set({
-            'Course': {
-              selectedCourse: {
-                "isPurchased": false,
-              }
-            }
-          }, SetOptions(merge: true));
-        }
+        // if (dueDate.isAfter(DateTime.now().add(Duration(days: 1)))) {
+        //   print("Date is not passed");
+        // } else {
+        //   print("Date is passed");
+        //   var tempRefrence = firestore.collection("ManualPayment").doc(u_id);
+        //   tempRefrence.set({
+        //     'Course': {
+        //       selectedCourse: {
+        //         "isPurchased": false,
+        //       }
+        //     }
+        //   }, SetOptions(merge: true));
+        // }
         print(dueDate.toString());
       });
       print(isavail.toString());
@@ -166,17 +164,19 @@ class _CoursesSciencesState extends State<CoursesSciences> {
                                 print(e.toString());
                               }
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SubscriptionPage(
-                                            offerings: offerings,
-                                            purchaserInfo: purchaserInfo,
-                                            package: offerings
-                                                .getOffering("biochemistry0")
-                                                .threeMonth,
-                                            email: userId.email,
-                                          )));
-                              print(offerings);
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SubscriptionPage(
+                                    offerings: offerings,
+                                    purchaserInfo: purchaserInfo,
+                                    package: offerings
+                                        .getOffering("biochemistry0")
+                                        .threeMonth,
+                                    email: userId.email,
+                                  ),
+                                ),
+                              );
+                              print("this is the offering  : $offerings");
                             }
                           } catch (e) {
                             print("Problem is :   " + e.toString());

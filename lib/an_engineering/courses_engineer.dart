@@ -33,8 +33,7 @@ class _CoursesEngineerState extends State<CoursesEngineer> {
           .get()
           .then((value) async {
         isavail = value.data()["Course"][selectedCourse]["isPurchased"];
-        var dueDate =
-            value.data()["Course"][selectedCourse]["DueDate"].toDate();
+        var dueDate = value.data()["Course"][selectedCourse]["DueDate"];
 
         if (dueDate.isAfter(DateTime.now())) {
           print("Date is not passed");
@@ -481,45 +480,45 @@ class _CoursesEngineerState extends State<CoursesEngineer> {
                         borderRadius: BorderRadius.all(Radius.circular(25.0))),
                     child: InkWell(
                       onTap: () async {
-                      try {
-                        if (purchaserInfo.activeSubscriptions
-                            .contains('civil_materials') ||
-                            await checkmanual('civil_materials')) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChaptersBio(
-                                      courseName: 'civil_materials')));
-                        } else {
-                          try {
-                            if (offerings
-                                .getOffering("civil_materials")
-                                .availablePackages
-                                .isNotEmpty) {
-                              package = offerings.current.threeMonth;
+                        try {
+                          if (purchaserInfo.activeSubscriptions
+                                  .contains('civil_materials') ||
+                              await checkmanual('civil_materials')) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChaptersBio(
+                                        courseName: 'civil_materials')));
+                          } else {
+                            try {
+                              if (offerings
+                                  .getOffering("civil_materials")
+                                  .availablePackages
+                                  .isNotEmpty) {
+                                package = offerings.current.threeMonth;
 
-                              // Display packages for sale
+                                // Display packages for sale
+                              }
+                            } on PlatformException catch (e) {
+                              // optional error handling
+                              print(e.toString());
                             }
-                          } on PlatformException catch (e) {
-                            // optional error handling
-                            print(e.toString());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SubscriptionPage(
+                                          offerings: offerings,
+                                          purchaserInfo: purchaserInfo,
+                                          package: offerings
+                                              .getOffering("civil_materials")
+                                              .threeMonth,
+                                          email: userId.email,
+                                        )));
+                            print(offerings);
                           }
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SubscriptionPage(
-                                    offerings: offerings,
-                                    purchaserInfo: purchaserInfo,
-                                    package: offerings
-                                        .getOffering("civil_materials")
-                                        .threeMonth,
-                                    email: userId.email,
-                                  )));
-                          print(offerings);
+                        } catch (e) {
+                          print("Problem is :   " + e.toString());
                         }
-                      } catch (e) {
-                        print("Problem is :   " + e.toString());
-                      }
                       },
                       splashColor: Colors.black,
                       child: Center(

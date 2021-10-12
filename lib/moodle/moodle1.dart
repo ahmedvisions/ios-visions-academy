@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -6,7 +5,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class Moodle extends StatefulWidget {
   final String title;
   final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+      Completer<WebViewController>();
   Moodle({Key key, this.title, String username}) : super(key: key);
 
   @override
@@ -27,39 +26,37 @@ JavascriptChannel snackbarJavascriptChannel(BuildContext context) {
 }
 
 class _MoodleState extends State<Moodle> {
-
   final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+      Completer<WebViewController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        appBar: new AppBar(
-          backgroundColor: Colors.red,
-          title: new Text('Visions Moodle'),
-          actions: <Widget>[
-            NavigationControls(_controller.future),
-          ],
-        ),
-        body: Builder(
-          builder: (BuildContext context) {
-            return WebView(
-              initialUrl: 'https://visions.moodlecloud.com/login/index.php',
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _controller.complete(webViewController);
-              },
-              javascriptChannels: <JavascriptChannel>[
-                snackbarJavascriptChannel(context),
-              ].toSet(),
-            );
-          },
-        ),
+      appBar: new AppBar(
+        backgroundColor: Colors.red,
+        title: new Text('Visions Moodle'),
+        actions: <Widget>[
+          NavigationControls(_controller.future),
+        ],
+      ),
+      body: Builder(
+        builder: (BuildContext context) {
+          return WebView(
+            initialUrl: 'https://visions.moodlecloud.com/login/index.php',
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              _controller.complete(webViewController);
+            },
+            javascriptChannels: <JavascriptChannel>[
+              snackbarJavascriptChannel(context),
+            ].toSet(),
+          );
+        },
+      ),
       //  floatingActionButton: _buildShowUrlBtn(),
-
     );
   }
+
   Widget _buildShowUrlBtn() {
     return FutureBuilder<WebViewController>(
       future: _controller.future,
@@ -78,12 +75,7 @@ class _MoodleState extends State<Moodle> {
       },
     );
   }
-
 }
-
-
-
-
 
 class NavigationControls extends StatelessWidget {
   const NavigationControls(this._webViewControllerFuture);
@@ -105,45 +97,44 @@ class NavigationControls extends StatelessWidget {
               onPressed: !webViewReady
                   ? null
                   : () async {
-                if (await controller.canGoBack()) {
-                  controller.goBack();
-                } else {
-                  Scaffold.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("No Back history Item"),
-                    ),
-                  );
-                }
-              },
+                      if (await controller.canGoBack()) {
+                        controller.goBack();
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("No Back history Item"),
+                          ),
+                        );
+                      }
+                    },
             ),
             IconButton(
               icon: const Icon(Icons.arrow_forward_ios),
               onPressed: !webViewReady
                   ? null
                   : () async {
-                if (await controller.canGoForward()) {
-                  controller.goForward();
-                } else {
-                  Scaffold.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("No Forward history Item"),
-                    ),
-                  );
-                }
-              },
+                      if (await controller.canGoForward()) {
+                        controller.goForward();
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("No Forward history Item"),
+                          ),
+                        );
+                      }
+                    },
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: !webViewReady
                   ? null
                   : () async {
-                controller.reload();
-              },
+                      controller.reload();
+                    },
             )
           ],
         );
       },
-
     );
   }
 }

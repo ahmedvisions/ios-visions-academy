@@ -20,11 +20,21 @@ class UserModel {
       this.deviceId});
 
   UserModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    uid = doc.data()['Uid'];
-    email = doc.data()['email'];
-    accountCreated = doc.data()['accountCreated'];
-    displayName = doc.data()['displayName'];
-    phoneNumber = doc.data()['phoneNumber'];
-    deviceId = doc.data()['DeviceId'];
+    uid = FirebaseFirestore.instance.collection("videoUidUrl").toString();
+    email = FirebaseFirestore.instance.collection("email").toString();
+    accountCreated = FirebaseFirestore.instance
+        .collection("accountCreated")
+        .toString() as Timestamp;
+    displayName =
+        FirebaseFirestore.instance.collection("displayName").toString();
+    phoneNumber =
+        FirebaseFirestore.instance.collection("phoneNumber").toString();
+    deviceId = FirebaseFirestore.instance.collection("DeviceId").toString();
+    // uid = doc.data()['Uid'];
+    // email = doc.data()['email'];
+    // accountCreated = doc.data()['accountCreated'];
+    // displayName = doc.data()['displayName'];
+    // phoneNumber = doc.data()['phoneNumber'];
+    // deviceId = doc.data()['DeviceId'];
   }
 }

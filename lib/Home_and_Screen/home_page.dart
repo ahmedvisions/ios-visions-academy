@@ -14,6 +14,7 @@ import 'package:visions_academy/an_engineering/courses_engineer.dart';
 import 'package:visions_academy/constants.dart';
 import 'package:visions_academy/data_for_log_register/auth.dart';
 import 'package:visions_academy/information/information0.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
@@ -49,51 +50,52 @@ class _HomeScreenState extends State<HomeScreen> {
     return isavail;
   }
 
-  _showDialog(String title, String message, BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (ctx) => WillPopScope(
-            onWillPop: () async => false,
-            child: new AlertDialog(
-              elevation: 15,
-              title: Text("Upgrade is available"),
-              content:
-                  Text("Please First upgrade you application from  playstore"),
-              actions: [
-                RaisedButton(
-                  onPressed: () async {
-                    final urlString =
-                        "https://play.google.com/store/apps/details?id=com.visionsacademy.visions_academy";
-                    if (await canLaunch(urlString)) await launch(urlString);
-                    SystemNavigator.pop();
-                  },
-                  child: Text("Upgrade"),
-                ),
-              ],
-            )));
-  }
+  // _showDialog(String title, String message, BuildContext context) {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (ctx) => WillPopScope(
+  //           onWillPop: () async => false,
+  //           child: new AlertDialog(
+  //             elevation: 15,
+  //             title: Text("Upgrade is available"),
+  //             content:
+  //                 Text("Please First upgrade you application from  playstore"),
+  //             actions: [
+  //               RaisedButton(
+  //                 onPressed: () async {
+  //                   final urlString =
+  //                       "https://play.google.com/store/apps/details?id=com.visionsacademy.visions_academy";
+  //                   if (await canLaunch(urlString)) await launch(urlString);
+  //                   SystemNavigator.pop();
+  //                 },
+  //                 child: Text("Upgrade"),
+  //               ),
+  //             ],
+  //           )));
+  // }
 
-  bool isAvailableUpdate;
-  Future<void> checkNewVersion(BuildContext context) async {
+  // bool isAvailableUpdate;
+  Future<void> checkNewVersion() async {
     final newVersion = NewVersion(
-        androidId: 'com.visionsacademy.visions_academy', context: context);
-    final status = await newVersion.getVersionStatus();
-    isAvailableUpdate = status.canUpdate;
+      androidId: 'com.visionsacademy.visions_academy',
+    );
+    // final status = await newVersion.getVersionStatus();
+    // // isAvailableUpdate = status.canUpdate;
 
-    print(status.canUpdate.toString() +
-        status.localVersion +
-        " :  " +
-        status.storeVersion +
-        ": " +
-        status.appStoreLink);
-    Future.delayed(Duration.zero, () {
-      if (isAvailableUpdate) {
-        //  _showDialog("Upgrade is available", "", context);//TODO plese uncomit this line for upgrade check
-        //          title: "Update Available ",content:Text("Please Update Visions Academy application from play store")
-        //  );
-      }
-    });
+    // print(status.canUpdate.toString() +
+    //     status.localVersion +
+    //     " :  " +
+    //     status.storeVersion +
+    //     ": " +
+    //     status.appStoreLink);
+    // Future.delayed(Duration.zero, () {
+    //   // if (isAvailableUpdate) {
+    //   //   //  _showDialog("Upgrade is available", "", context);//TODO plese uncomit this line for upgrade check
+    //   //   //          title: "Update Available ",content:Text("Please Update Visions Academy application from play store")
+    //   //   //  );
+    //   // }
+    // });
   }
 
   Future<void> initPlatformState() async {
@@ -128,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Color primaryColor = Color.fromRGBO(255, 40, 48, 1);
-    checkNewVersion(context);
+    checkNewVersion();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(244, 244, 244, 1),
@@ -191,8 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(100.0),
                           color: Colors.white,
                           child: MaterialButton(
-                             onPressed: ()
-                           {
+                            onPressed: () {
 //                               showDialog<String>(
 //                                 context: context,
 //                                 builder: (BuildContext context) => AlertDialog(
@@ -311,10 +312,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 offerings,
                                                             purchaserInfo:
                                                                 purchaserInfo,
-                                                            package: offerings
-                                                                .getOffering(
-                                                                    "moodle")
-                                                                .threeMonth,
+                                                            // package: offerings
+                                                            //     .getOffering(
+                                                            //         "moodle")
+                                                            //     .threeMonth,
                                                             email: userId.email,
                                                           )));
                                               print(offerings);
@@ -475,55 +476,55 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Column(
-                                  // children: <Widget>[
-                                  //   Material(
-                                  //     borderRadius:
-                                  //         BorderRadius.circular(100.0),
-                                  //     color: Colors.pink.withOpacity(0.1),
-                                  //     child: IconButton(
-                                  //       padding: EdgeInsets.all(15.0),
-                                  //       icon: Icon(Icons.airplanemode_inactive),
-                                  //       color: Colors.pink,
-                                  //       iconSize: 30.0,
-                                  //       onPressed: () async {
-                                  //         // try {
-                                  //         //   if (purchaserInfo
-                                  //         //           .activeSubscriptions
-                                  //         //           .contains('test') ||
-                                  //         //       await checkmanual('test')) {
-                                  //         //     Navigator.pushNamed(
-                                  //         //         context, "/News");
-                                  //         //   } else {
-                                  //         //     Navigator.push(
-                                  //         //         context,
-                                  //         //         MaterialPageRoute(
-                                  //         //             builder: (context) =>
-                                  //         //                 SubscriptionPage(
-                                  //         //                   offerings:
-                                  //         //                       offerings,
-                                  //         //                   purchaserInfo:
-                                  //         //                       purchaserInfo,
-                                  //         //                   package: offerings
-                                  //         //                       .getOffering(
-                                  //         //                           "test")
-                                  //         //                       .weekly,
-                                  //         //                   email: userId.email,
-                                  //         //                 )));
-                                  //         //   }
-                                  //         // } catch (e) {
-                                  //         //   print(
-                                  //         //       "Problem :   " + e.toString());
-                                  //         // }
-                                  //       },
-                                  //     ),
-                                  //   ),
-                                  //   SizedBox(height: 8.0),
-                                  //   Text('Soon...',
-                                  //       style: TextStyle(
-                                  //           color: Colors.black54,
-                                  //           fontWeight: FontWeight.bold))
-                                  // ],
-                                ),
+                                    // children: <Widget>[
+                                    //   Material(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(100.0),
+                                    //     color: Colors.pink.withOpacity(0.1),
+                                    //     child: IconButton(
+                                    //       padding: EdgeInsets.all(15.0),
+                                    //       icon: Icon(Icons.airplanemode_inactive),
+                                    //       color: Colors.pink,
+                                    //       iconSize: 30.0,
+                                    //       onPressed: () async {
+                                    //         // try {
+                                    //         //   if (purchaserInfo
+                                    //         //           .activeSubscriptions
+                                    //         //           .contains('test') ||
+                                    //         //       await checkmanual('test')) {
+                                    //         //     Navigator.pushNamed(
+                                    //         //         context, "/News");
+                                    //         //   } else {
+                                    //         //     Navigator.push(
+                                    //         //         context,
+                                    //         //         MaterialPageRoute(
+                                    //         //             builder: (context) =>
+                                    //         //                 SubscriptionPage(
+                                    //         //                   offerings:
+                                    //         //                       offerings,
+                                    //         //                   purchaserInfo:
+                                    //         //                       purchaserInfo,
+                                    //         //                   package: offerings
+                                    //         //                       .getOffering(
+                                    //         //                           "test")
+                                    //         //                       .weekly,
+                                    //         //                   email: userId.email,
+                                    //         //                 )));
+                                    //         //   }
+                                    //         // } catch (e) {
+                                    //         //   print(
+                                    //         //       "Problem :   " + e.toString());
+                                    //         // }
+                                    //       },
+                                    //     ),
+                                    //   ),
+                                    //   SizedBox(height: 8.0),
+                                    //   Text('Soon...',
+                                    //       style: TextStyle(
+                                    //           color: Colors.black54,
+                                    //           fontWeight: FontWeight.bold))
+                                    // ],
+                                    ),
                                 // Column(
                                 //   children: <Widget>[
                                 //     Material(
@@ -656,7 +657,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
-                      //    SizedBox(height: 1.0),
+                          //    SizedBox(height: 1.0),
                           Divider(),
                           SizedBox(height: 5.0),
                           Padding(

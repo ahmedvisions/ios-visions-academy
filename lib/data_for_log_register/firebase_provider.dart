@@ -32,14 +32,50 @@ class FirebaseProvider {
   static mapQueryToVideoInfo(QuerySnapshot qs) {
     return qs.docs.map((DocumentSnapshot ds) {
       return VideoInfo(
-        videoUrl: ds.data()['videoUrl'],
-        thumbUrl: ds.data()['thumbUrl'],
-        coverUrl: ds.data()['coverUrl'],
-        aspectRatio: ds.data()['aspectRatio'],
-        videoName: ds.data()['videoName'],
-        uploadedAt: ds.data()['uploadedAt'].toDate(),
-        chapter: ds.data()['chapterNo'],
-        courseName: ds.data()['CourseName'],
+        // videoUrl: FirebaseFirestore.instance.collection("videoUrl").toString(),
+        // thumbUrl: FirebaseFirestore.instance.collection("thumbUrl").toString(),
+        // coverUrl: FirebaseFirestore.instance.collection("coverUrl").toString(),
+        // aspectRatio:
+        //     FirebaseFirestore.instance.collection("aspectRatio") as double,
+
+        // videoName:
+        //     FirebaseFirestore.instance.collection("videoName").toString(),
+        // uploadedAt: FirebaseFirestore.instance
+        //     .collection("uploadedAt")
+        //     .toString() as DateTime,
+        // chapter: FirebaseFirestore.instance.collection("chapterNo").toString()
+        //     as int,
+        // courseName:
+        //     FirebaseFirestore.instance.collection("CourseName").toString(),
+        videoUrl:
+            ds.data().toString().contains('videoUrl') ? ds.get('videoUrl') : '',
+        thumbUrl:
+            ds.data().toString().contains('thumbUrl') ? ds.get('thumbUrl') : '',
+        coverUrl:
+            ds.data().toString().contains('coverUrl') ? ds.get('coverUrl') : '',
+        aspectRatio: ds.data().toString().contains('aspectRatio')
+            ? ds.get('aspectRatio')
+            : '',
+        videoName: ds.data().toString().contains('videoName')
+            ? ds.get('videoName')
+            : '',
+        // uploadedAt: ds.data().toString().contains('uploadedAt')
+        //     ? ds.get('uploadedAt')
+        //     : '',
+        chapter: ds.data().toString().contains('chapterNo')
+            ? ds.get('chapterNo')
+            : '',
+        courseName: ds.data().toString().contains('CourseName')
+            ? ds.get('CourseName')
+            : '',
+        // videoUrl: ds.get('videoUrl'),
+        // thumbUrl: ds.get('thumbUrl'),
+        // coverUrl: ds.get('coverUrl'),
+        // aspectRatio: ds.get('aspectRatio'),
+        // videoName: ds.get('videoName'),
+        // uploadedAt: ds.get('uploadedAt').toDate(),
+        // chapter: ds.get('chapterNo'),
+        // courseName: ds.get('CourseName'),
       );
     }).toList();
   }

@@ -36,7 +36,8 @@ class ChatController extends GetxController {
       transaction.set(
         nameReference,
         {
-          'name': userSS.data()["displayName"],
+          'name': FirebaseFirestore.instance.collection("displayName"),
+          // 'name': userSS.data()["displayName"],
         },
       );
     });

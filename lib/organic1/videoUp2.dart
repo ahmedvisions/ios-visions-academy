@@ -84,9 +84,11 @@ class _UpVid2State extends State<UpVid2> {
                                 borderRadius: new BorderRadius.circular(8.0),
                                 child: FadeInImage.memoryNetwork(
                                   placeholder: kTransparentImage,
-                                  image: video.thumbUrl != null
-                                      ? video.thumbUrl
-                                      : 'https://picsum.photos/200/300',
+                                  image:
+                                      //  video.thumbUrl != null
+                                      //     ? video.thumbUrl
+                                      //     :
+                                      'https://picsum.photos/200/300',
                                 ),
                               ),
                             ),
@@ -102,8 +104,9 @@ class _UpVid2State extends State<UpVid2> {
                                 Text("${video.videoName}"),
                                 Container(
                                   margin: new EdgeInsets.only(top: 12.0),
-                                  child: Text(
-                                      'Uploaded ${timeago.format(video.uploadedAt)}'),
+                                  child: Text('Uploaded'
+                                      // ${timeago.format(video.uploadedAt)}
+                                      ),
                                 ),
                               ],
                             ),

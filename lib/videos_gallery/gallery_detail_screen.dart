@@ -40,18 +40,18 @@ class _PortfolioGalleryDetailPageState
     );
   }
 
-  Widget _buildImageCarouselSlider() {
-    return CarouselSlider.builder(
-      itemCount: widget.imagePaths.length,
-      itemBuilder: (BuildContext context, int index) {
-        return PortfolioGalleryImageWidget(
-          imagePath: widget.imagePaths[index],
-          onImageTap: () => _pageController.jumpToPage(index),
-        );
-      },
-      options: null,
-    );
-  }
+  // Widget _buildImageCarouselSlider() {
+  //   return CarouselSlider.builder(
+  //     itemCount: widget.imagePaths.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return PortfolioGalleryImageWidget(
+  //         imagePath: widget.imagePaths[index],
+  //         onImageTap: () => _pageController.jumpToPage(index),
+  //       );
+  //     },
+  //     options: null,
+  //   );
+  // }
 
   Widget _buildContent() {
     return Stack(

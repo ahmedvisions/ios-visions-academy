@@ -2,11 +2,11 @@ class VideoInfo {
   String videoUrl;
   String thumbUrl;
   String coverUrl;
-  double aspectRatio;
-  DateTime uploadedAt;
+  dynamic aspectRatio;
+  dynamic uploadedAt;
   String videoName;
   String courseName;
-  int chapter;
+  dynamic chapter;
 
   VideoInfo(
       {this.videoUrl,

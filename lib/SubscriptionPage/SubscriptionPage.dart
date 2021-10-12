@@ -6,10 +6,11 @@ import '../Home_and_Screen/home_page.dart';
 import '../constants.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+// ignore: must_be_immutable
 class SubscriptionPage extends StatelessWidget {
   final PurchaserInfo purchaserInfo;
   final Offerings offerings;
-  final Package package;
+  var package;
   final String email;
 
   SubscriptionPage(
@@ -29,13 +30,15 @@ class SubscriptionPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Center(
             child: offerGrid(
-                context,
-                package.product.title,
-                email,
-                package.product.description,
-                package.product.price,
-                package,
-                package.product.identifier),
+              context,
+              "Vision Academy",
+              // package.product.title,
+              email,
+              package.product.description,
+              package.product.price,
+              package,
+              package.product.identifier,
+            ),
           ),
         ));
   }
@@ -140,53 +143,53 @@ Widget offerGrid(
           ),
         ),
       ),
-      Container(
-        width: MediaQuery.of(context).size.width / 1.2,
-        child: RaisedButton(
-          color: SimpleButtonColors,
-          onPressed: () async {
-            try {
-              Purchases.purchasePackage(package).then((v) async {
-                // wow                // var firebaseUser = await FirebaseAuth.instance.currentUser();
-                await firestore
-                    // user id of loggedin user
-                    .collection("RevenuePayment")
-                    .doc(
-                        u_id) // make new manual payment collection in user collection
-                    .set({
-                  // add these information
-                  "Course": selectedCourse,
-                  "uid": u_id,
-                  // Course on which user selected
-                  "StartDate": v.originalPurchaseDate,
-                  // i make it null in customer app because we will make check for requests and approved users
-                  "DueDate": v.latestExpirationDate,
-                  // there will be calculated date if three month or six month
-                  "time": DateTime.now().toLocal().toString()
-                });
-              });
-              await Purchases.syncPurchases();
-            } on PlatformException catch (e) {
-              var errorCode = PurchasesErrorHelper.getErrorCode(e);
-              if (errorCode == PurchasesErrorCode.purchaseCancelledError) {
-                print("User cancelled");
-              } else if (errorCode ==
-                  PurchasesErrorCode.purchaseNotAllowedError) {
-                print("User not allowed to purchase");
-              }
-            }
-            return BottomBar();
-          },
-          child: Container(
-              child: Center(
-                  child: Text("Buy - (${package.product.priceString})"))),
-        ),
-      ),
-      Container(
-        child: Center(
-          child: Text("Or"),
-        ),
-      ),
+      // Container(
+      //   width: MediaQuery.of(context).size.width / 1.2,
+      //   child: RaisedButton(
+      //     color: SimpleButtonColors,
+      //     onPressed: () async {
+      //       try {
+      //         Purchases.purchasePackage(package).then((v) async {
+      //           // wow                // var firebaseUser = await FirebaseAuth.instance.currentUser();
+      //           await firestore
+      //               // user id of loggedin user
+      //               .collection("RevenuePayment")
+      //               .doc(
+      //                   u_id) // make new manual payment collection in user collection
+      //               .set({
+      //             // add these information
+      //             "Course": selectedCourse,
+      //             "uid": u_id,
+      //             // Course on which user selected
+      //             "StartDate": v.originalPurchaseDate,
+      //             // i make it null in customer app because we will make check for requests and approved users
+      //             "DueDate": v.latestExpirationDate,
+      //             // there will be calculated date if three month or six month
+      //             "time": DateTime.now().toLocal().toString()
+      //           });
+      //         });
+      //         await Purchases.syncPurchases();
+      //       } on PlatformException catch (e) {
+      //         var errorCode = PurchasesErrorHelper.getErrorCode(e);
+      //         if (errorCode == PurchasesErrorCode.purchaseCancelledError) {
+      //           print("User cancelled");
+      //         } else if (errorCode ==
+      //             PurchasesErrorCode.purchaseNotAllowedError) {
+      //           print("User not allowed to purchase");
+      //         }
+      //       }
+      //       return BottomBar();
+      //     },
+      //     child: Container(
+      //         child: Center(
+      //             child: Text("Buy - (${package.product.priceString})"))),
+      //   ),
+      // ),
+      // Container(
+      //   child: Center(
+      //     child: Text("Or"),
+      //   ),
+      // ),
       Container(
           width: MediaQuery.of(context).size.width / 1.2,
           child: RaisedButton(
@@ -242,7 +245,7 @@ Widget offerGrid(
               }
             },
             child: Container(
-              child: Center(child: Text("Manual Payment")),
+              child: Center(child: Text("I am a successful student")),
             ),
           ))
     ],

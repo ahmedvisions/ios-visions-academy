@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:visions_academy/organic1/ChapterOneOrganicVideo.dart';

@@ -856,7 +856,8 @@
 			<key>entitlements</key>
 			<dict>
 				<key>application-identifier</key>
-				<string>U397R4M75Q.com.visionsacademy.visionsAcademy</string>
+				<string>U397R4M75Q.
+com.visionsacademy.visionsAcademy01</string>
 				<key>beta-reports-active</key>
 				<true/>
 				<key>com.apple.developer.team-identifier</key>
@@ -865,7 +866,8 @@
 				<false/>
 				<key>keychain-access-groups</key>
 				<array>
-					<string>U397R4M75Q.com.visionsacademy.visionsAcademy</string>
+					<string>U397R4M75Q.
+com.visionsacademy.visionsAcademy01</string>
 				</array>
 			</dict>
 			<key>name</key>
@@ -875,7 +877,8 @@
 				<key>UUID</key>
 				<string>e2a35136-5930-450a-aca5-460d37809134</string>
 				<key>name</key>
-				<string>iOS Team Store Provisioning Profile: com.visionsacademy.visionsAcademy</string>
+				<string>iOS Team Store Provisioning Profile: 
+com.visionsacademy.visionsAcademy01</string>
 			</dict>
 			<key>symbols</key>
 			<true/>

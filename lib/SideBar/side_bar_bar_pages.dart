@@ -39,8 +39,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
     userSS = await _databaseService.getSnapShot();
     if (mounted)
       setState(() {
-        _displayname = userSS.data()["displayName"];
-        _email = userSS.data()["email"];
+        _displayname =
+            FirebaseFirestore.instance.collection("displayName").toString();
+        _email = FirebaseFirestore.instance.collection("email").toString();
+        // _displayname = userSS.data()["displayName"];
+        // _email = userSS.data()["email"];
       });
   }
 

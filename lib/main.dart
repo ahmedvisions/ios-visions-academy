@@ -1,5 +1,7 @@
-  import 'package:firebase_core/firebase_core.dart';
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:visions_academy/Home_and_Screen/news.dart';
 import 'package:visions_academy/register_login/login.dart';
 import 'package:visions_academy/splash_screen.dart';
@@ -15,8 +17,14 @@ import 'package:get/get.dart';
 //main.dart file color is changed when i saved button.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+  // await secureScreen();
   runApp(MyApp());
+}
+
+Future<void> secureScreen() async {
+  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
 }
 
 class MyApp extends StatefulWidget {
@@ -25,6 +33,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool _platform = false;
+
+  void deviceInfo() async {
+    if (Platform.isAndroid) {
+      _platform = true;
+    } else if (Platform.isIOS) {
+      _platform = true;
+    } else {
+      _platform = false;
+    }
+  }
+
+  @override
+  void initState() {
+    deviceInfo();
+    print("this is the _platform === $_platform");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 ////////////////////////////////////check update
@@ -33,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(primaryColor: Colors.redAccent),
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
-      initialRoute: '/hh',
+      home: _platform == true ? SplashScreen() : Container(),
       routes: {
         '/Botton': (context) => BottomBar(),
         '/register': (context) => SignUp(),
@@ -47,4 +74,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-

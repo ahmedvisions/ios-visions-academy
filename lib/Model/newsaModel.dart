@@ -5,8 +5,12 @@ class NewsModel {
   NewsModel(this.title, this.detail, this.time);
 
   NewsModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    time = doc.data()['time'];
-    detail = doc.data()['detail'];
-    title = doc.data()['title'];
+    time = FirebaseFirestore.instance.collection("time").toString();
+    detail = FirebaseFirestore.instance.collection("detail").toString();
+    title = FirebaseFirestore.instance.collection("title").toString();
+    // time =
+    //  doc.data()['time'];
+    // detail = doc.data()['detail'];
+    // title = doc.data()['title'];
   }
 }

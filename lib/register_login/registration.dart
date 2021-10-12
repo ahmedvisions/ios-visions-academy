@@ -41,7 +41,7 @@ class _SignUpState extends State<SignUp> {
       }
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(e.message),
+        content: Text(e.message),
       ));
     }
   }
@@ -372,9 +372,8 @@ class _SignUpState extends State<SignUp> {
                                                       fontSize: 20),
                                                   onChanged: (textValue) {
                                                     setState(() {
-                                                      _displayNameController =
-                                                          textValue
-                                                              as TextEditingController;
+                                                      _displayNameController
+                                                          .text = textValue;
                                                     });
                                                   },
                                                   // ignore: missing_return
