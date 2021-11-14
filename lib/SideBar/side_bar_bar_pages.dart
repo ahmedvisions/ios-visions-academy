@@ -33,15 +33,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
     initUser();
   }
 
-  String _displayname = "", _email;
+  String _displayname = "", _email = "";
   DatabaseService _databaseService = new DatabaseService();
   initUser() async {
-    userSS = await _databaseService.getSnapShot();
+    var userData = await _databaseService.getUserData();
     if (mounted)
       setState(() {
-        _displayname =
-            FirebaseFirestore.instance.collection("displayName").toString();
-        _email = FirebaseFirestore.instance.collection("email").toString();
+        _displayname = userData.displayName;
+        _email = userData.email;
         // _displayname = userSS.data()["displayName"];
         // _email = userSS.data()["email"];
       });
@@ -65,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   children: <Widget>[
                     SizedBox(height: 15.0),
                     UserAccountsDrawerHeader(
-                      accountName: Text(_displayname,
+                      accountName: Text(_displayname ?? '',
                           style: TextStyle(
                               color: Colors.black,
                               fontStyle: FontStyle.italic,
@@ -78,7 +77,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                         ),
                       ),
-                      accountEmail: Text("$_email",
+                      accountEmail: Text(_email ?? '',
                           style: TextStyle(
                               color: Colors.black,
                               fontStyle: FontStyle.italic,

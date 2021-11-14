@@ -1,12 +1,8 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-
-import '../constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'users.dart';
 
 class DatabaseService {
@@ -14,18 +10,34 @@ class DatabaseService {
 
   Future<String> createUser(UserModel user, String devId) async {
     String retVal = "error";
-
+    print("UID: ${user.uid}");
     try {
-      await firestore.collection("users").doc(devId).set({
+      await firestore.collection("users").doc(user.uid).set({
         'displayName': user.displayName,
         'email': user.email,
         'phoneNumber': user.phoneNumber,
         'accountCreated': Timestamp.now(),
-        'Uid': user.uid,
+        'deviceID': devId,
+        //   'deviceToken'
       });
       retVal = "success";
     } catch (error) {
       print(error.toString());
+      return null;
+    }
+
+    return retVal;
+  }
+
+  Future<String> loginUser(String uid, String devId) async {
+    String retVal = "error";
+
+    try {
+      await firestore.collection("users").doc(uid).update({
+        'deviceID': devId,
+      });
+    } catch (error) {
+      print(error);
       return null;
     }
 
@@ -49,7 +61,7 @@ class DatabaseService {
     try {
       await firestore
           .collection("users")
-          .doc(await getId())
+          .doc(FirebaseAuth.instance.currentUser.uid)
           .get()
           .then((value) {
         snapshot = value;
@@ -59,5 +71,49 @@ class DatabaseService {
       return null;
     }
     return snapshot;
+  }
+
+  Future<UserModel> getUserData() async {
+    UserModel userModel;
+    try {
+      await firestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser.uid)
+          .get()
+          .then((value) {
+        print('---------------------------------');
+        print(value.data()['displayName']);
+        print(value.data()['email']);
+        print(value.data()['deviceID']);
+        userModel = new UserModel(
+            uid: FirebaseAuth.instance.currentUser.uid,
+            displayName: value.data()['displayName'],
+            email: value.data()['email'],
+            phoneNumber: value.data()['phoneNumber'],
+            accountCreated: value.data()['accountCreated'],
+            deviceId: value.data()['deviceID']);
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+    return userModel;
+  }
+
+  Future<String> getDevIdFromDatabase() async {
+    String deviceID;
+    try {
+      await firestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser.uid)
+          .get()
+          .then((value) {
+        deviceID = value.data()['deviceID'];
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+    return deviceID;
   }
 }

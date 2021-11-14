@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:visions_academy/data_for_log_register/auth_for_stay_log.dart';
 import 'package:visions_academy/data_for_log_register/database.dart';
 import 'package:visions_academy/loading/loading0.dart';
+
 class Login extends StatefulWidget {
   const Login({this.onSignedIn, this.auth});
 
@@ -52,7 +54,7 @@ class _LoginState extends State<Login> {
   TextEditingController _passwordController = TextEditingController();
 
   ///strings
-  String email, password, devID, _error;
+  String email, password, devID, _error, uid;
   bool loading = false;
   bool _showPassword = false;
 //////////////////////////////////Check id////////////
@@ -82,9 +84,16 @@ class _LoginState extends State<Login> {
 //     return a;
 //   }
 
-  void getId() async {
+  Future<String> getId() async {
     devID = await _databaseService.getId();
     print(devID.toString());
+    return devID;
+  }
+
+  String getUID() {
+    uid = FirebaseAuth.instance.currentUser.uid;
+    print(uid);
+    return uid;
   }
 
   @override
@@ -169,7 +178,6 @@ class _LoginState extends State<Login> {
                                           child: Column(children: <Widget>[
                                             SizedBox(height: 1.0),
                                             TextFormField(
-
                                               controller: _emailController,
                                               onChanged: (textValue) {
                                                 setState(() {
@@ -336,18 +344,30 @@ class _LoginState extends State<Login> {
                                                         if (formKey.currentState
                                                             .validate()) {
                                                           setState(() =>
-                                                          loading = true);
+                                                              loading = true);
                                                           try {
-                                                            await _firebaseAuth.signInWithEmailAndPassword(
-                                                                email: email, password: password);
-                                                            Navigator.pushReplacementNamed(
-                                                                context, "/Botton");
+                                                            await _firebaseAuth
+                                                                .signInWithEmailAndPassword(
+                                                                    email:
+                                                                        email,
+                                                                    password:
+                                                                        password);
+
+                                                            _databaseService
+                                                                .loginUser(
+                                                                    getUID(),
+                                                                    await getId());
+                                                            Navigator
+                                                                .pushReplacementNamed(
+                                                                    context,
+                                                                    "/Botton");
+
                                                             widget.onSignedIn();
                                                           } catch (e) {
                                                             print(e);
                                                             setState(() =>
-                                                            loading =
-                                                            false);
+                                                                loading =
+                                                                    false);
                                                             setState(() {
                                                               _error =
                                                                   e.toString();

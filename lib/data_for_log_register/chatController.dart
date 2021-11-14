@@ -4,10 +4,8 @@ import 'package:dash_chat/dash_chat.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'database.dart';
 
 class ChatController extends GetxController {
-  DatabaseService _databaseService = new DatabaseService();
   final Rx<ChatUser> user = ChatUser(
           name: FirebaseAuth.instance.currentUser.displayName,
           uid: FirebaseAuth.instance.currentUser.uid,
@@ -15,9 +13,7 @@ class ChatController extends GetxController {
           color: Colors.black)
       .obs;
   Future<void> onSend(ChatMessage message) async {
-    DocumentSnapshot userSS;
     print(message.toJson());
-    userSS = await _databaseService.getSnapShot();
     var documentReference = FirebaseFirestore.instance
         .collection('messagesUser')
         .doc(FirebaseAuth.instance.currentUser.uid.toString())
