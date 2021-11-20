@@ -2,7 +2,6 @@
 *.class
 *.log
 *.pyc
-
 *.swp
 .DS_Store
 .atom/
@@ -23,6 +22,7 @@
 
 # Flutter/Dart/Pub related
 **/doc/api/
+**/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -30,7 +30,6 @@
 .pub-cache/
 .pub/
 /build/
-*.lock
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -41,9 +40,7 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Exceptions to above rules.
-!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-*.gradle
-.flutter-plugins
-.flutter-plugins-dependencies
-pubspec.lock
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release

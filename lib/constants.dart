@@ -10,16 +10,53 @@ const kSendButtonTextStyle = TextStyle(
 
 String uniqueId = "Unknown";
 String platformImei = 'Unknown';
-final String publicKeyRevenuCat = "czQXvObozQEFqrYfVRCIxSxvsBNohLNN";
+const String publicKeyRevenuCat = "czQXvObozQEFqrYfVRCIxSxvsBNohLNN";
+
+
+
 String u_id;
-Color SimpleButtonColors = const Color(0xffd50000);
-Color SimpleButtonColors2 = const Color(0xff4592af);
-Color BackGroundcolor = const Color(0xffffffff);
+const simpleButtonColors =  Color(0xff5596ea);
+const simpleButtonColors2 =  Color(0xff4592af);
+const back_groundcolor =  Color(0xffffffff);
+
+const kTextColor = Color(0xFF0D1333);
+const kBlueColor = Color(0xFF6E8AFA);
+const kBestSellerColor = Color(0xFFFFD073);
+const kGreenColor = Color(0xFF49CC96);
 const TextStyle cardTitleTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
+
+
+// My Text Styles
+const kHeadingextStyle = TextStyle(
+  fontSize: 28,
+  color: kTextColor,
+  fontWeight: FontWeight.bold,
+);
+const kSubheadingextStyle = TextStyle(
+  fontSize: 24,
+  color: Color(0xFF61688B),
+  height: 2,
+);
+
+const kTitleTextStyle = TextStyle(
+  fontSize: 20,
+  color: kTextColor,
+  fontWeight: FontWeight.bold,
+);
+
+const kSubtitleTextSyule = TextStyle(
+  fontSize: 18,
+  color: kTextColor,
+  // fontWeight: FontWeight.bold,
+);
+
+
+
+
 Widget drawNewsDataCard(String title, String desc, String time) {
   return Card(
     child: Padding(
@@ -29,7 +66,7 @@ Widget drawNewsDataCard(String title, String desc, String time) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 30,
               child: Icon(
                 Icons.notifications,
@@ -39,13 +76,13 @@ Widget drawNewsDataCard(String title, String desc, String time) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 7),
+                Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 7),
                 Text(desc),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   time,
-                  style: TextStyle(color: Colors.grey, fontSize: 10),
+                  style: const TextStyle(color: Colors.grey, fontSize: 10),
                 ),
               ],
             ),
@@ -59,11 +96,12 @@ Widget drawNewsDataCard(String title, String desc, String time) {
 showAlertDialog(BuildContext context, String title, String disc) {
   // set up the button
   Widget okButton = FlatButton(
-    child: Text("OK"),
+    child: const Text("OK"),
     onPressed: () {
       Navigator.pop(context);
     },
   );
+
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
@@ -97,7 +135,7 @@ void purchasePackage(Package package) async {
   try {
     PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
     if (purchaserInfo.entitlements.all["my_entitlement_identifier"].isActive) {
-// Unlock that great "pro" content
+    // Unlock that great "pro" content
     }
   } on PlatformException catch (e) {
     var errorCode = PurchasesErrorHelper.getErrorCode(e);
